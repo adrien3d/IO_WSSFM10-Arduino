@@ -153,14 +153,14 @@ bool IO_WSSFM10::send(const void* data, uint8_t size){//const void* data
 	/*for(uint8_t i = 0; i < len; ++i) {
         Sigfox.print(bytes[i]);
     }*/
-	test();//To wake up if module is in sleep mode
+	//test();//To wake up if module is in sleep mode
 
 	Sigfox.print("AT$SF=");
 	for(uint8_t i= 0; i<size; ++i){
 		Sigfox.print(bytes[i]);
 		if(debug){
 			Serial.print("Byte:");
-			Serial.println(msg[i], HEX);
+			Serial.println(bytes[i], HEX);
 		}
 	}
 
@@ -173,7 +173,7 @@ bool IO_WSSFM10::send(const void* data, uint8_t size){//const void* data
 	String res = getData();
 
 	if(res.indexOf("OK") >= 0) {
-		Serial.print("Message successfully sent");
+		Serial.println("Message successfully sent");
 		return true;
 	}
 	

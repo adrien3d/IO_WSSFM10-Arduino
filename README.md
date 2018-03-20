@@ -1,5 +1,5 @@
 IoThings Arduino Library for
-Wisol WSSFM10 Mocule
+Wisol WSSFM10 Module
 ==============================================================
 
 Here is all the code you need to use this module

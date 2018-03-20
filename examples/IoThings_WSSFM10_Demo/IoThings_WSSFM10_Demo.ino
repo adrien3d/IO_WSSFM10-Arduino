@@ -12,6 +12,14 @@
 
 IO_WSSFM10 mySigfox(10, 11, true);
 
+typedef struct {
+  int counter;
+  int light;
+  float temp;
+} Payload;
+
+int counter=0;
+  
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
     pinMode(LED_BUILTIN, OUTPUT);
@@ -26,8 +34,13 @@ void setup() {
 }
   
 // the loop function runs over and over again forever
-void loop() {
-  mySigfox.send(&"aa",2);
+void loop() {  
+  Payload p;
+  p.counter = counter;
+  p.light = analogRead(A1);
+  p.temp = analogRead(A2);
+  bool status = mySigfox.send(&p,sizeof(p));
+  if (status) counter++;
 
   delay(60000);
 }
