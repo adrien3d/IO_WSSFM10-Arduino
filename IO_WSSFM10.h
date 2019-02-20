@@ -43,7 +43,8 @@ class IO_WSSFM10
 		String setPowerMode(uint8_t mode);
 		void wakeUp(void);
 
-		bool send(const void* data, uint8_t size, bool receive);
+		bool send(const void* data, uint8_t size);
+		bool sendReceive(const void* data, uint8_t size, String response);
 		/*int8_t getRev();
 		bool setPower(uint8_t power);*/
 

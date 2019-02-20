@@ -149,15 +149,11 @@ void IO_WSSFM10::wakeUp(void){
 }
 
 //Send Sigfox Message
-bool IO_WSSFM10::send(const void* data, uint8_t size, bool receive){//const void* data
+bool IO_WSSFM10::send(const void* data, uint8_t size){//const void* data
 	String status = "";
 	char output;
 
 	uint8_t* bytes = (uint8_t*)data;
-	/*for(uint8_t i = 0; i < len; ++i) {
-        Sigfox.print(bytes[i]);
-    }*/
-	//test();//To wake up if module is in sleep mode
 
 	Sigfox.print("AT$SF=");
 	for(uint8_t i= 0; i<size; ++i){
@@ -166,10 +162,6 @@ bool IO_WSSFM10::send(const void* data, uint8_t size, bool receive){//const void
 			Serial.print("Byte:");
 			Serial.println(bytes[i], HEX);
 		}
-	}
-
-	if(receive){
-		Sigfox.print(",1");	
 	}
 
 	Sigfox.print("\r");
@@ -182,6 +174,42 @@ bool IO_WSSFM10::send(const void* data, uint8_t size, bool receive){//const void
 
 	if(res.indexOf("OK") >= 0) {
 		Serial.println("Message successfully sent");
+		return true;
+	}
+	
+	if(debug){
+		Serial.print("Status: ");
+		Serial.println(res);
+	}
+	return false;
+}
+
+
+bool IO_WSSFM10::sendReceive(const void* data, uint8_t size, String response){
+	String status = "";
+	char output;
+
+	uint8_t* bytes = (uint8_t*)data;
+	Sigfox.print("AT$SF=");
+	for(uint8_t i= 0; i<size; ++i){
+		Sigfox.print(bytes[i]);
+		if(debug){
+			Serial.print("Byte:");
+			Serial.println(bytes[i], HEX);
+		}
+	}
+
+	Sigfox.print(",1\r");
+
+	while (!Sigfox.available()){
+		blink();
+	}
+
+	String res = getData();
+
+	if(res.indexOf("OK") >= 0) {
+		Serial.println("Message successfully sent");
+		response = getData();
 		return true;
 	}
 	

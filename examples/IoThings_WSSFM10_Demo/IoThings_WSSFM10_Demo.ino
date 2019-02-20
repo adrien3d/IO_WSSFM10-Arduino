@@ -35,12 +35,19 @@ void setup() {
   
 // the loop function runs over and over again forever
 void loop() {  
+  String sfResponse;
   Payload p;
   p.counter = counter;
   p.light = analogRead(A1);
   p.temp = analogRead(A2);
-  bool status = mySigfox.send(&p,sizeof(p));
-  if (status) counter++;
+  bool statusS = mySigfox.send(&p, sizeof(p));
+  if (statusS) counter++;
 
   delay(60000);
+  bool statusSR = mySigfox.sendReceive(&p, sizeof(p), sfResponse);
+  if (statusSR) {
+    for (uint8_t i= 0; i<26; ++i) {//RX= 01 02 03 04 05 06 07 08
+      Serial.println(sfResponse[i]);
+    }
+  }
 }
