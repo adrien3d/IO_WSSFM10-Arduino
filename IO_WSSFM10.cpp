@@ -144,8 +144,12 @@ String IO_WSSFM10::setPowerMode(uint8_t mode){
 	return res;
 }
 
+void IO_WSSFM10::wakeUp(void){
+	Sigfox.print("\r");
+}
+
 //Send Sigfox Message
-bool IO_WSSFM10::send(const void* data, uint8_t size){//const void* data
+bool IO_WSSFM10::send(const void* data, uint8_t size, bool receive){//const void* data
 	String status = "";
 	char output;
 
@@ -162,6 +166,10 @@ bool IO_WSSFM10::send(const void* data, uint8_t size){//const void* data
 			Serial.print("Byte:");
 			Serial.println(bytes[i], HEX);
 		}
+	}
+
+	if(receive){
+		Sigfox.print(",1");	
 	}
 
 	Sigfox.print("\r");
