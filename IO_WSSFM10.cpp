@@ -144,6 +144,20 @@ String IO_WSSFM10::setPowerMode(uint8_t mode){
 	return res;
 }
 
+String IO_WSSFM10::setOutputPower(uint8_t power){
+	Sigfox.print("ATS302=");
+	Sigfox.print(power);
+	Sigfox.print("\r");
+	String res = getData();
+
+	if(debug){
+		Serial.println("Output Power response: ");
+		Serial.println(res);
+	}
+
+	return res;
+}
+
 void IO_WSSFM10::wakeUp(void){
 	Sigfox.print("\r");
 }

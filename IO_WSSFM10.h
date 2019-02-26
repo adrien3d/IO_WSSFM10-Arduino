@@ -41,6 +41,7 @@ class IO_WSSFM10
 		//uint16_t getTemp(void);
 		uint16_t getTemp(void);
 		String setPowerMode(uint8_t mode);
+		String setOutputPower(uint8_t power)
 		void wakeUp(void);
 
 		bool send(const void* data, uint8_t size);
