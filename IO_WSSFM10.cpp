@@ -14,7 +14,7 @@
 
 //Message buffer
 uint8_t msg[12];
-
+char to_be_sent[12];
 /*IO_WSSFM10::IO_WSSFM10 () : Sigfox(), debug(1) {
 	//Sigfox(rxPin, txPin, 3);
 }*/
@@ -161,6 +161,19 @@ String IO_WSSFM10::setOutputPower(uint8_t power){
 void IO_WSSFM10::wakeUp(void){
 	Sigfox.print("\r");
 }
+
+//Send Sigfox Message in String
+void IO_WSSFM10::sendString(String A){
+
+  Sigfox.print("AT$SF=");
+  Sigfox.print(A);
+  if(debug){
+    Serial.print("Message:");
+    Serial.println(A);
+  }
+  Sigfox.print("\n");
+}
+
 
 //Send Sigfox Message
 bool IO_WSSFM10::send(const void* data, uint8_t size){//const void* data
