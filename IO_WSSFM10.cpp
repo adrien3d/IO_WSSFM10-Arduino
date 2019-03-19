@@ -14,7 +14,6 @@
 
 //Message buffer
 uint8_t msg[12];
-char to_be_sent[12];
 /*IO_WSSFM10::IO_WSSFM10 () : Sigfox(), debug(1) {
 	//Sigfox(rxPin, txPin, 3);
 }*/
