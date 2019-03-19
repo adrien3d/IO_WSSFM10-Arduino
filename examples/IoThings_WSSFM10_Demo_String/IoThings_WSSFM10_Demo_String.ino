@@ -12,7 +12,8 @@
 
 IO_WSSFM10 mySigfox(10, 11, true);
 
-uint16_t counter = 0, light = 0, temp = 0;
+uint8_t counter = 0;
+uint16_t light = 0, temp = 0;
   
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
@@ -37,7 +38,7 @@ void loop() {
   light = analogRead(A1);
   temp = analogRead(A2);
 
-  sprintf(to_be_sent, "%04X%04X%04X", counter, light, temp);
+  sprintf(to_be_sent, "%02X%04X%04X", counter, light, temp);
 
   bool statusS = mySigfox.sendString(&p, sizeof(p));
   if (statusS) counter++;
