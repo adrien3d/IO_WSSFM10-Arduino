@@ -198,6 +198,35 @@ bool IO_WSSFM10::send(const void* data, uint8_t size){//const void* data
 	return false;
 }
 
+bool IO_WSSFM10::sendString(String str) {
+	if(debug){
+		Serial.print("Message:");
+		Serial.println(str);
+	}
+
+	Sigfox.print("AT$SF=");
+	Sigfox.print(str);
+	Sigfox.print("\r");
+
+  	while (!Sigfox.available()){
+		blink();
+	}
+
+	String res = getData();
+
+	if(res.indexOf("OK") >= 0) {
+		Serial.println("Message successfully sent");
+		return true;
+	}
+	
+	if(debug){
+		Serial.print("Status: ");
+		Serial.println(res);
+	}
+	return false;
+}
+
+
 
 bool IO_WSSFM10::sendReceive(const void* data, uint8_t size, String response){
 	String status = "";
@@ -213,6 +242,35 @@ bool IO_WSSFM10::sendReceive(const void* data, uint8_t size, String response){
 		}
 	}
 
+	Sigfox.print(",1\r");
+
+	while (!Sigfox.available()){
+		blink();
+	}
+
+	String res = getData();
+
+	if(res.indexOf("OK") >= 0) {
+		Serial.println("Message successfully sent");
+		response = getData();
+		return true;
+	}
+	
+	if(debug){
+		Serial.print("Status: ");
+		Serial.println(res);
+	}
+	return false;
+}
+
+
+bool IO_WSSFM10::sendReceiveString(String str, String response) {
+	String status = "";
+	char output;
+
+
+	Sigfox.print("AT$SF=");
+	Sigfox.print(str);
 	Sigfox.print(",1\r");
 
 	while (!Sigfox.available()){

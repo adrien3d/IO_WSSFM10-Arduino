@@ -46,6 +46,9 @@ class IO_WSSFM10
 
 		bool send(const void* data, uint8_t size);
 		bool sendReceive(const void* data, uint8_t size, String response);
+
+		bool sendString(String str);
+		bool sendReceiveString(String str, String response);
 		/*int8_t getRev();
 		bool setPower(uint8_t power);*/
 
