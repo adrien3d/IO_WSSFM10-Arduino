@@ -6,20 +6,20 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-IO_WSSFM10		KEYWORD1
+IO_WSSFM10	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-begin			KEYWORD2
-blink			KEYWORD2
-begin			KEYWORD2
-getID			KEYWORD2
-getPAC			KEYWORD2
-sendMessage		KEYWORD2
+begin	KEYWORD2
+blink	KEYWORD2
+begin	KEYWORD2
+getID	KEYWORD2
+getPAC	KEYWORD2
+sendMessage	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
-DEBUG			LITTERAL1
+DEBUG	LITTERAL1
