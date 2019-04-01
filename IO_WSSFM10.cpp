@@ -48,14 +48,17 @@ String IO_WSSFM10::getData(){
 
 	while(Sigfox.available()){
 		output = Sigfox.read();
-		data += output;
+		if (output != 0x0A){ // i.e. line feed
+			data += output;
+    	}
+
 		delay(10);
 	}	
 
-	/*if(debug){
+	if(debug){
 		Serial.print("Data: ");
 		Serial.println(data);
-	}*/
+	}
 
 	return data;
 }
