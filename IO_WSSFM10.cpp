@@ -48,7 +48,9 @@ String IO_WSSFM10::getData(){
 
 	while(Sigfox.available()){
 		output = Sigfox.read();
-		data += output;
+		if (output!=0x0A){
+      			data += output;
+    		}
 		delay(10);
 	}	
 
