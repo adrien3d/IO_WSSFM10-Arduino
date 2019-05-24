@@ -48,7 +48,7 @@ String IO_WSSFM10::getData(){
 
 	while(Sigfox.available()){
 		output = Sigfox.read();
-		if ((output!=0x0A)&&(output!=0x0D)){//0x0A Line feed | 0x0D Carriage return
+		if ((output != 0x0A) && (output != 0x0D)){//0x0A Line feed | 0x0D Carriage return
 			data += output;
     	}
 
