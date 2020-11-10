@@ -1,10 +1,7 @@
 /***************************************************************************
   This is a library for the Wisol 10 module 
-
   Designed to work with all kinds of WSSFM10R Breakout Boards
-
   This module use UART, 2 pins are required to interface.
-
   Written by Adrien Chapelet for IoThings
  ***************************************************************************/
 
@@ -167,18 +164,22 @@ void IO_WSSFM10::wakeUp(void){
 
 //Send Sigfox Message
 bool IO_WSSFM10::send(const void* data, uint8_t size){//const void* data
-	String status = "";
-	char output;
-
 	uint8_t* bytes = (uint8_t*)data;
 
 	Sigfox.print("AT$SF=");
+	char tmp[3] = {0}; // 2 hex characters + null terminator
+	if(debug){
+		Serial.print("Bytes:");
+	}
 	for(uint8_t i= 0; i<size; ++i){
-		Sigfox.print(bytes[i]);
+		sprintf(tmp, "%02X", bytes[i]);
+		Sigfox.print(tmp);
 		if(debug){
-			Serial.print("Byte:");
-			Serial.println(bytes[i], HEX);
+			Serial.print(tmp);
 		}
+	}
+	if(debug){
+		Serial.println();
 	}
 
 	Sigfox.print("\r");
@@ -232,17 +233,21 @@ bool IO_WSSFM10::sendString(String str) {
 
 
 bool IO_WSSFM10::sendReceive(const void* data, uint8_t size, String response){
-	String status = "";
-	char output;
-
 	uint8_t* bytes = (uint8_t*)data;
 	Sigfox.print("AT$SF=");
+	char tmp[3] = {0}; // 2 hex characters + null terminator
+	if(debug){
+		Serial.print("Bytes:");
+	}
 	for(uint8_t i= 0; i<size; ++i){
-		Sigfox.print(bytes[i]);
+		sprintf(tmp, "%02X", bytes[i]);
+		Sigfox.print(tmp);
 		if(debug){
-			Serial.print("Byte:");
-			Serial.println(bytes[i], HEX);
+			Serial.print(tmp);
 		}
+	}
+	if(debug){
+		Serial.println();
 	}
 
 	Sigfox.print(",1\r");
@@ -268,10 +273,6 @@ bool IO_WSSFM10::sendReceive(const void* data, uint8_t size, String response){
 
 
 bool IO_WSSFM10::sendReceiveString(String str, String response) {
-	String status = "";
-	char output;
-
-
 	Sigfox.print("AT$SF=");
 	Sigfox.print(str);
 	Sigfox.print(",1\r");
