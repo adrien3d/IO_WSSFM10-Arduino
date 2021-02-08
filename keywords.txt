@@ -22,4 +22,4 @@ sendMessage	KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
-DEBUG	LITTERAL1
+DEBUG	LITERAL1
