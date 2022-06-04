@@ -17,8 +17,6 @@
 #include <SoftwareSerial.h>
 //#include "SoftSerialSTM32.h"
 
-#define LED_BUILTIN 13
-
 class IO_WSSFM10
 {
 	protected:
